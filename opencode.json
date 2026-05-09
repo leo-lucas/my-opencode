@@ -1,6 +1,44 @@
 {
-  "$schema": "https://opencode.ai",
-  "plugin": ["llama-router"],
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "@mailshieldai/opencode-canvas",
+    "@nick-vi/opencode-type-inject",
+    "@tarquinen/opencode-dcp",
+    "opencode-websearch-cited@1.2.0",
+    "opencode-notificator",
+    "kdco/workspace",
+    "octto",
+    "opencode-agent-memory",
+    "opencode-agent-skills",
+    "micode",
+    "opentmux",
+    "@howaboua/opencode-planning-toolkit@latest"
+  ],
+  "permission": {
+    "canvas_*": "allow"
+  },
+  "mcp": {
+    "context7": {
+      "type": "local",
+      "command": ["npx", "-y", "@upstash/context7-mcp", "--api-key", "YOUR_API_KEY"],
+      "enabled": true
+    },
+    "memory": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-memory"],
+      "enabled": true
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
+      "enabled": true
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "@playwright/mcp@latest"],
+      "enabled": true
+    }
+  },
   "provider": {
     "llamacpp": {
       "npm": "@ai-sdk/openai-compatible",
