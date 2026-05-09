@@ -8,11 +8,7 @@
     "opencode-notificator",
     "kdco/workspace",
     "octto",
-    "opencode-agent-memory",
-    "opencode-agent-skills",
-    "micode",
     "opentmux",
-    "@howaboua/opencode-planning-toolkit@latest"
   ],
   "permission": {
     "canvas_*": "allow"
