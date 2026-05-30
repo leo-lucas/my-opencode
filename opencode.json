@@ -9,6 +9,7 @@
     "kdco/workspace",
     "octto",
     "opentmux",
+    "opencode-plugin-llama.cpp@latest"
   ],
   "permission": {
     "canvas_*": "allow"
@@ -51,6 +52,14 @@
         "meu-modelo-local": {
           "name": "Modelo Local Llama.cpp",
           "tool_call": true
+        }
+      }
+    },
+    "google": {
+      "type": "api",
+      "options": {
+        "websearch_cited": {
+          "model": "gemini-2.5-flash"
         }
       }
     }
