@@ -36,8 +36,11 @@
       "enabled": true
     },
     "docker": {
-      "type": "local",
-      "command": ["ssh", "leonardo@miztorvi.com", "docker", "exec", "-i", "mcp-docker"],
+      "type": "remote",
+      "url": "https://mcp.miztorvi.com/docker/sse",
+      "headers": {
+        "X-API-Key": "GlVJgDqNXzdyweb6H6cdagRTDk+nPVjh1xnwbitpI90="
+      },
       "enabled": true
     }
   },
