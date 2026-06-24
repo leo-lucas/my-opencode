@@ -39,7 +39,7 @@
       "type": "remote",
       "url": "https://mcp.miztorvi.com/docker/sse",
       "headers": {
-        "X-API-Key": "GlVJgDqNXzdyweb6H6cdagRTDk+nPVjh1xnwbitpI90="
+        "X-API-Key": "${MCP_API_KEY}"
       },
       "enabled": true
     }
