@@ -15,11 +15,7 @@
     "canvas_*": "allow"
   },
   "mcp": {
-    "context7": {
-      "type": "local",
-      "command": ["npx", "-y", "@upstash/context7-mcp", "--api-key", "YOUR_API_KEY"],
-      "enabled": true
-    },
+ 
     "memory": {
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-memory"],
@@ -35,12 +31,19 @@
       "command": ["npx", "@playwright/mcp@latest"],
       "enabled": true
     },
-    "docker": {
+    "azure-devops": {
+      "type": "local",
+      "command": ["npx", "-y", "@azure-devops/mcp"],
+      "enabled": true
+    },
+    "microsoft-docs": {
       "type": "remote",
-      "url": "https://mcp.miztorvi.com/docker/sse",
-      "headers": {
-        "X-API-Key": "${MCP_API_KEY}"
-      },
+      "url": "https://learn.microsoft.com/api/mcp",
+      "enabled": true
+    },
+    "duckduckgo": {
+      "type": "local",
+      "command": ["uvx", "duckduckgo-mcp-server"],
       "enabled": true
     }
   },
