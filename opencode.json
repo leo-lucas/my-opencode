@@ -45,7 +45,7 @@
     }
   },
   "provider": {
-    "llamacpp": {
+    "llamacpp-local": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "llama.cpp (Local)",
       "options": {
@@ -59,6 +59,42 @@
       "models": {
         "meu-modelo-local": {
           "name": "Modelo Local Llama.cpp",
+          "tool_call": true
+        }
+      }
+    },
+    "llamacpp-remote": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "llama.cpp (Remote - miztorvi)",
+      "options": {
+        "baseURL": "https://llama.miztorvi.com/v1",
+        "apiKey": "${LLAMACPP_API_KEY}",
+        "toolParser": [
+          { "type": "raw-function-call" },
+          { "type": "json" }
+        ]
+      },
+      "models": {
+        "meu-modelo-remote": {
+          "name": "Modelo Remote Llama.cpp (miztorvi)",
+          "tool_call": true
+        }
+      }
+    },
+    "big-llama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Big Llama",
+      "options": {
+        "baseURL": "https://big-llama.miztorvi.com/v1",
+        "apiKey": "${BIG_LLAMA_API_KEY}",
+        "toolParser": [
+          { "type": "raw-function-call" },
+          { "type": "json" }
+        ]
+      },
+      "models": {
+        "big-llama-model": {
+          "name": "Big Llama Model",
           "tool_call": true
         }
       }
