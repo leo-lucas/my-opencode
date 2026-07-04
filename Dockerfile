@@ -11,6 +11,8 @@ ENV NVM_DIR=/root/.nvm
 ENV NODE_VERSION=22
 ENV PATH="/root/.nvm/versions/node/v22.23.1/bin:/root/.local/bin:/root/.cargo/bin:$PATH"
 
+RUN pipx install uv
+
 RUN [ -s "$NVM_DIR/nvm.sh" ] && \
     . "$NVM_DIR/nvm.sh" && \
     nvm install $NODE_VERSION && \
