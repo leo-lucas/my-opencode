@@ -24,7 +24,7 @@ RUN git clone https://github.com/leo-lucas/my-term.git /tmp/my-term && \
     CI=true /tmp/my-term/scripts/setup-oh-my-zsh.sh && \
     CI=true /tmp/my-term/scripts/setup-zshrc.sh && \
     CI=true /tmp/my-term/scripts/setup-spaceship.sh && \
-    CI=true /tmp/my-term/scripts/install-nvim.sh
+    CI=true /tmp/my-term/install-nvim.sh
 
 RUN echo '# Load nvm\nexport NVM_DIR="$NVM_DIR"\n[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"\nexport PATH="/root/.local/bin:$PATH"' >> ~/.bashrc
 
