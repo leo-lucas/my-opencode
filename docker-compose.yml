@@ -1,0 +1,33 @@
+services:
+  opencode:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: opencode
+
+    # Modo: tui | web | serve
+    environment:
+      - MODE=${MODE:-tui}
+      - OPENCODE_PORT=${OPENCODE_PORT:-8080}
+      - OPENCODE_HOSTNAME=${OPENCODE_HOSTNAME:-0.0.0.0}
+
+    # Comandos personalizados
+    command: ["${MODE:-tui}"]
+
+    volumes:
+      # Monta seu projeto atual dentro do container
+      - ${PROJECT_PATH:-.}:/workspace:rw
+      # Persiste a config do opencode (providers, auth, etc)
+      - opencode-config:/opencode/.opencode
+      # (opcional) Monta sua auth local se existir
+      - ${HOME}/.local/share/opencode/auth.json:/opencode/.opencode/auth.json:ro
+
+    ports:
+      # Só expõe porta no modo web/serve
+      - "${OPENCODE_PORT:-8080}:${OPENCODE_PORT:-8080}"
+
+    stdin_open: true
+    tty: true
+
+volumes:
+  opencode-config:

@@ -1,0 +1,29 @@
+{
+  "scripts": {
+    "update-models": "node scripts/update-models.js",
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "devDependencies": {
+    "@juliusbrussee/caveman-code": "^0.65.2"
+  },
+  "dependencies": {
+    "@opencode-ai/plugin": "1.14.19"
+  },
+  "name": "my-opencode",
+  "version": "1.0.0",
+  "description": "Configuração personalizada do [opencode](https://github.com/anthropic/opencode) com merge automático de repositório remoto.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leo-lucas/my-opencode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leo-lucas/my-opencode/issues"
+  },
+  "homepage": "https://github.com/leo-lucas/my-opencode#readme"
+}
