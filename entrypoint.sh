@@ -4,6 +4,16 @@ MODE="${1:-tui}"
 PORT="${OPENCODE_PORT:-8080}"
 HOSTNAME="${OPENCODE_HOSTNAME:-0.0.0.0}"
 
+# Authenticate gh CLI
+if [ -n "$GH_TOKEN" ]; then
+  echo "Authenticating GitHub CLI with token..."
+  echo "$GH_TOKEN" | gh auth login -p https --git-protocol https --with-token 2>&1
+else
+  echo "Starting GitHub CLI device auth flow..."
+  echo "Visit https://github.com/login/device and enter the code shown below."
+  gh auth login --hostname github.com --git-protocol https -p https 2>&1
+fi
+
 case "$MODE" in
   tui)
     shift

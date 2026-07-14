@@ -10,6 +10,7 @@ services:
       - MODE=${MODE:-tui}
       - OPENCODE_PORT=${OPENCODE_PORT:-8080}
       - OPENCODE_HOSTNAME=${OPENCODE_HOSTNAME:-0.0.0.0}
+      - GH_TOKEN=${GH_TOKEN:-}
 
     # Comandos personalizados
     command: ["${MODE:-tui}"]
