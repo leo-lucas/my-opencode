@@ -22,6 +22,8 @@ services:
       - opencode-config:/opencode/.opencode
       # (opcional) Monta sua auth local se existir
       - ${HOME}/.local/share/opencode/auth.json:/opencode/.opencode/auth.json:ro
+      # Usa auth do gh CLI do host
+      - /home/leonardo/.config/gh:/root/.config/gh:ro
 
     ports:
       # Só expõe porta no modo web/serve

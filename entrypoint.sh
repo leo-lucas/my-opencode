@@ -4,8 +4,10 @@ MODE="${1:-tui}"
 PORT="${OPENCODE_PORT:-8080}"
 HOSTNAME="${OPENCODE_HOSTNAME:-0.0.0.0}"
 
-# Authenticate gh CLI
-if [ -n "$GH_TOKEN" ]; then
+# Authenticate gh CLI - use mounted host auth if available, otherwise use token or device flow
+if [ -f /root/.config/gh/hosts.yml ]; then
+  echo "Using GitHub CLI authentication from host..."
+elif [ -n "$GH_TOKEN" ]; then
   echo "Authenticating GitHub CLI with token..."
   echo "$GH_TOKEN" | gh auth login -p https --git-protocol https --with-token 2>&1
 else
