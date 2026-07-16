@@ -52,7 +52,7 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "llama.cpp (miztorvi)",
       "options": {
-        "baseURL": "https://llama.miztorvi.com/v1",
+        "baseURL": "http://llama-router:8080/v1",
         "apiKey": "local",
         "toolParser": [
           { "type": "raw-function-call" },
