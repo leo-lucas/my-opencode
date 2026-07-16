@@ -60,8 +60,32 @@
         ]
       },
       "models": {
-        "meu-modelo-local": {
-          "name": "Modelo Local Llama.cpp",
+        "Gemma-4-12B-IT": {
+          "name": "Gemma 4 12B IT",
+          "tool_call": true
+        },
+        "Gemma-4-26B-A4B-IT": {
+          "name": "Gemma 4 26B A4B IT",
+          "tool_call": true
+        },
+        "Qwen3.5-9B-MTP": {
+          "name": "Qwen 3.5 9B MTP",
+          "tool_call": true
+        },
+        "Qwen3.6-27B-MTP": {
+          "name": "Qwen 3.6 27B MTP",
+          "tool_call": true
+        },
+        "Qwen3.6-35B-A3B-MTP-KV-Cache-q8": {
+          "name": "Qwen 3.6 35B A3B MTP KV Cache q8",
+          "tool_call": true
+        },
+        "unsloth/Qwen3.5-9B-MTP-GGUF:Q5_K_XL": {
+          "name": "Qwen 3.5 9B MTP GGUF Q5_K_XL",
+          "tool_call": true
+        },
+        "unsloth/Qwen3.6-35B-A3B-MTP-GGUF:IQ4_NL": {
+          "name": "Qwen 3.6 35B A3B MTP GGUF IQ4_NL",
           "tool_call": true
         }
       }
