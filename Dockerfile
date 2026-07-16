@@ -13,6 +13,8 @@ ENV PATH="/root/.nvm/versions/node/v22.23.1/bin:/root/.local/bin:/root/.cargo/bi
 
 RUN pipx install uv
 
+RUN curl -fsSL https://bun.sh/install | bash
+
 RUN [ -s "$NVM_DIR/nvm.sh" ] && \
     . "$NVM_DIR/nvm.sh" && \
     nvm install $NODE_VERSION && \
