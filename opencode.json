@@ -48,11 +48,11 @@
     }
   },
   "provider": {
-    "llamacpp-local": {
+    "llamacpp": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "llama.cpp (Local)",
+      "name": "llama.cpp (miztorvi)",
       "options": {
-        "baseURL": "http://127.0.0.1:8080/v1",
+        "baseURL": "https://llama.miztorvi.com/v1",
         "apiKey": "local",
         "toolParser": [
           { "type": "raw-function-call" },
@@ -86,24 +86,6 @@
         },
         "unsloth/Qwen3.6-35B-A3B-MTP-GGUF:IQ4_NL": {
           "name": "Qwen 3.6 35B A3B MTP GGUF IQ4_NL",
-          "tool_call": true
-        }
-      }
-    },
-    "llamacpp-remote": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "llama.cpp (Remote - miztorvi)",
-      "options": {
-        "baseURL": "https://llama.miztorvi.com/v1",
-        "apiKey": "${LLAMACPP_API_KEY}",
-        "toolParser": [
-          { "type": "raw-function-call" },
-          { "type": "json" }
-        ]
-      },
-      "models": {
-        "meu-modelo-remote": {
-          "name": "Modelo Remote Llama.cpp (miztorvi)",
           "tool_call": true
         }
       }
