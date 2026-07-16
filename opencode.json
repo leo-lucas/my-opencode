@@ -84,24 +84,6 @@
         }
       }
     },
-    "big-llama": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Big Llama",
-      "options": {
-        "baseURL": "https://big-llama.miztorvi.com/v1",
-        "apiKey": "${BIG_LLAMA_API_KEY}",
-        "toolParser": [
-          { "type": "raw-function-call" },
-          { "type": "json" }
-        ]
-      },
-      "models": {
-        "big-llama-model": {
-          "name": "Big Llama Model",
-          "tool_call": true
-        }
-      }
-    },
     "google": {
       "type": "api",
       "options": {
