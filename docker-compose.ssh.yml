@@ -1,0 +1,14 @@
+# ── SSH Agent override ─────────────────────────────────────────────
+# Enable SSH agent forwarding from the host.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.ssh.yml up
+#
+# Or copy this snippet into a docker-compose.override.yml (ignored by git).
+
+services:
+  opencode:
+    environment:
+      - SSH_AUTH_SOCK=/tmp/ssh-auth.sock
+    volumes:
+      - ${SSH_AUTH_SOCK:?Set SSH_AUTH_SOCK on the host}:/tmp/ssh-auth.sock:ro

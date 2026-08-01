@@ -1,44 +1,67 @@
-#!/bin/sh
+#!/usr/bin/env bash
+# ── AI Workstation Entry Point ──────────────────────────────────────
 
-MODE="${1:-tui}"
-PORT="${OPENCODE_PORT:-8080}"
-HOSTNAME="${OPENCODE_HOSTNAME:-0.0.0.0}"
+set -euo pipefail
 
-# Authenticate gh CLI - use mounted host auth if available, otherwise use token or device flow
-if [ -f /root/.config/gh/hosts.yml ]; then
-  echo "Using GitHub CLI authentication from host..."
-elif [ -n "$GH_TOKEN" ]; then
-  echo "Authenticating GitHub CLI with token..."
-  echo "$GH_TOKEN" | gh auth login -p https --git-protocol https --with-token 2>&1
-else
-  echo "Starting GitHub CLI device auth flow..."
-  echo "Visit https://github.com/login/device and enter the code shown below."
-  gh auth login --hostname github.com --git-protocol https -p https 2>&1
+MODE="${1:-${MODE:-tui}}"
+
+# ── Colors ──────────────────────────────────────────────────────────
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+# ── Run bootstrap checks ───────────────────────────────────────────
+echo -e "${BOLD}${CYAN}╔══════════════════════════════════════════╗${NC}"
+echo -e "${BOLD}${CYAN}║     AI Workstation - OpenCode            ║${NC}"
+echo -e "${BOLD}${CYAN}╚══════════════════════════════════════════╝${NC}"
+
+SKIP_DOCKER_CHECK=false SKIP_GH_CHECK=false SKIP_SSH_CHECK=false SKIP_OPENCODE_CHECK=false \
+    bash /home/dev/bootstrap/00-check-volumes.sh
+
+# ── Run startup.d scripts ──────────────────────────────────────────
+if [[ -d /home/dev/startup.d ]]; then
+    for script in /home/dev/startup.d/*.sh; do
+        if [[ -x "$script" ]]; then
+            source "$script"
+        fi
+    done
 fi
 
+# ── Switch to workspace ────────────────────────────────────────────
+if [[ -d /workspace/projects ]]; then
+    cd /workspace/projects
+else
+    cd /workspace
+fi
+
+# ── Launch mode ────────────────────────────────────────────────────
 case "$MODE" in
-  tui)
-    shift
-    exec opencode "$@"
-    ;;
-  web)
-    echo "Starting opencode web mode on ${HOSTNAME}:${PORT}"
-    exec opencode web --port ${PORT} --hostname ${HOSTNAME} --pure
-    ;;
-  serve)
-    echo "Starting opencode headless server on ${HOSTNAME}:${PORT}"
-    exec opencode serve --port ${PORT} --hostname ${HOSTNAME} --pure
-    ;;
-  run)
-    shift
-    exec opencode run "$@"
-    ;;
-  *)
-    echo "Usage: $0 [tui|web|serve|run] [args...]"
-    echo "  tui    - Terminal UI mode (default)"
-    echo "  web    - Web interface mode"
-    echo "  serve  - Headless server mode"
-    echo "  run    - Run with a message"
-    exit 1
-    ;;
+    tui)
+        echo -e "\n${GREEN}Iniciando ZSH no workspace...${NC}\n"
+        exec zsh
+        ;;
+    doctor)
+        exec bash /home/dev/scripts/doctor.sh
+        ;;
+    check)
+        echo -e "\n${GREEN}Rodando verificações...${NC}\n"
+        bash /home/dev/bootstrap/00-check-volumes.sh
+        ;;
+    web)
+        shift
+        exec opencode web --port "${OPENCODE_PORT:-8080}" --hostname "${OPENCODE_HOSTNAME:-0.0.0.0}"
+        ;;
+    serve)
+        shift
+        exec opencode serve --port "${OPENCODE_PORT:-8080}" --hostname "${OPENCODE_HOSTNAME:-0.0.0.0}"
+        ;;
+    run)
+        shift
+        exec opencode run "$@"
+        ;;
+    *)
+        shift
+        exec opencode "$@"
+        ;;
 esac

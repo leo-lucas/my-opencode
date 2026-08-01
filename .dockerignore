@@ -1,7 +1,52 @@
+# Node modules
 node_modules
-dist
+npm-debug.log
+
+# Git
 .git
 .gitignore
+
+# Documentation
 *.md
+LICENSE
+CHANGES
+
+# Environment files
 .env
+.env.*
+!.env.example
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Opencode local config
 .opencode
+
+# Python
+__pycache__
+*.pyc
+.venv
+venv
+
+# Rust
+/target
+
+# Build artifacts
+dist
+build
+
+# Docker
+docker-compose.override.yml
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temp
+tmp
+temp

@@ -1,36 +1,81 @@
+# ── AI Workstation Docker Compose ──────────────────────────────────
+# Stateless AI development workstation
+# All state is mounted via volumes — nothing is baked into the image
+
 services:
   opencode:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}
     container_name: opencode
 
-    # Modo: tui | web | serve
+    # ── Environment ──────────────────────────────────────────────────
     environment:
       - MODE=${MODE:-tui}
       - OPENCODE_PORT=${OPENCODE_PORT:-8080}
       - OPENCODE_HOSTNAME=${OPENCODE_HOSTNAME:-0.0.0.0}
-      - GH_TOKEN=${GH_TOKEN:-}
+      - USER=dev
+      - HOME=/home/dev
+      - SHELL=/bin/zsh
+      - TERM=xterm-256color
+      - EDITOR=nvim
 
-    # Comandos personalizados
-    command: ["${MODE:-tui}"]
-
+    # ── Volumes ──────────────────────────────────────────────────────
     volumes:
-      # Monta seu projeto atual dentro do container
-      - ${PROJECT_PATH:-.}:/workspace:rw
-      # Persiste a config do opencode (providers, auth, etc)
-      - opencode-config:/opencode/.opencode
-      # (opcional) Monta sua auth local se existir
-      - ${HOME}/.local/share/opencode/auth.json:/opencode/.opencode/auth.json:ro
-      # Usa auth do gh CLI do host
-      - /home/leonardo/.config/gh:/root/.config/gh:ro
+      # SSH config and keys
+      - ${HOME:-/home/leonardo}/.ssh:/home/dev/.ssh:ro
 
+      # Docker config (contexts, credentials)
+      - ${HOME:-/home/leonardo}/.docker:/home/dev/.docker:ro
+
+      # Docker socket — host Docker access
+      - /var/run/docker.sock:/var/run/docker.sock
+
+      # GitHub CLI config (auth)
+      - ${HOME:-/home/leonardo}/.config/gh:/home/dev/.config/gh:ro
+
+      # OpenCode config (providers, settings)
+      - ${HOME:-/home/leonardo}/.config/opencode:/home/dev/.config/opencode:rw
+
+      # Neovim config
+      - ${HOME:-/home/leonardo}/.config/nvim:/home/dev/.config/nvim:ro
+
+      # Git config
+      - ${HOME:-/home/leonardo}/.gitconfig:/home/dev/.gitconfig:ro
+
+      # Zsh config
+      - ${HOME:-/home/leonardo}/.zshrc:/home/dev/.zshrc:ro
+
+      # Caches (persisted on host)
+      - ${HOME:-/home/leonardo}/.cache:/home/dev/.cache:rw
+      - ${HOME:-/home/leonardo}/.npm:/home/dev/.npm:rw
+      - ${HOME:-/home/leonardo}/.cargo:/home/dev/.cargo:rw
+      - ${HOME:-/home/leonardo}/.local/share:/home/dev/.local/share:rw
+
+      # Workspace — multiple project directories
+      - ./workspace/projects:/workspace/projects:rw
+      - ./workspace/company:/workspace/company:rw
+      - ./workspace/personal:/workspace/personal:rw
+      - ./workspace/playground:/workspace/playground:rw
+      - ./workspace/tmp:/workspace/tmp:rw
+
+    # ── Ports ────────────────────────────────────────────────────────
     ports:
-      # Só expõe porta no modo web/serve
       - "${OPENCODE_PORT:-8080}:${OPENCODE_PORT:-8080}"
 
+    # ── Network ──────────────────────────────────────────────────────
+    # Use host network when running with Docker contexts / multiple sockets.
+    # Uncomment to enable:
+    # network_mode: host
+
+    # ── Privileged mode (optional) ───────────────────────────────────
+    # Uncomment when elevated privileges are needed:
+    # privileged: true
+
+    # ── Resources ────────────────────────────────────────────────────
     stdin_open: true
     tty: true
-
-volumes:
-  opencode-config:
+    restart: unless-stopped
