@@ -48,7 +48,7 @@
     }
   },
   "provider": {
-    "llamacpp": {
+    "llama.cpp": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "llama.cpp (miztorvi)",
       "options": {
